@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-backend
+  namespace: ejemplito
+  labels:
+    app: micros
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: micros
+  template:
+    metadata:
+      labels:
+        app: micros
+    spec:
+      containers:
+      - name: client
+        image: containerkube1.azurecr.io/microclient 
+        ports:
+        - containerPort: 8000
+        env: 
+        - name: AUDIT_API
+          value: http://nlb-service:8080
+      - name: service
+        image: containerkube1.azurecr.io/microservice
+        ports:
+        - containerPort: 8080
+        env:
+        - name: url
+          value: jdbc:mysql://serverprueba.mysql.database.azure.com:3306/pokeaudit?useSSL=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+        - name: user
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: user
+        - name: pass
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: pass
