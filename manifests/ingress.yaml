@@ -4,7 +4,9 @@ metadata:
   name: app-ingress
   namespace: ejemplito
 spec:
+  ingressClassName: nginx
   rules:
+  
   - http:
       paths:
       - path: /
