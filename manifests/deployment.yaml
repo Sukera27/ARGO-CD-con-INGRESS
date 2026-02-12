@@ -21,8 +21,12 @@ spec:
         ports:
         - containerPort: 8000
         env: 
-        - name: AUDIT_API
-          value: http://nlb-service:8080
+          - name: SIMPSONS_API
+            value: "https://thesimpsonsapi.com/api/characters/"
+          - name: AUDIT_API
+            value: "http://api-backend-service:8080"
+          - name: AUDIT_API.SAVE_ENDPOINT
+            value: "/api/java/v1/simpson"
       - name: service
         image: containerkube1.azurecr.io/microservice
         ports:
