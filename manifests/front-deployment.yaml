@@ -16,5 +16,6 @@ spec:
       containers:
       - name: front
         image: containerkube1.azurecr.io/microfront
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
