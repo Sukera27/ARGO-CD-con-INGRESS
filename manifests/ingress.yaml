@@ -3,21 +3,14 @@ kind: Ingress
 metadata:
   name: app-ingress
   namespace: ejemplito
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   ingressClassName: nginx
   rules:
-  
   - http:
       paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: front-service
-            port:
-              number: 80
-
-      - path: /api/python
+      - path: /api/python(/|$)(.*)
         pathType: Prefix
         backend:
           service:
@@ -25,10 +18,18 @@ spec:
             port:
               number: 8000
 
-      - path: /api/java
+      - path: /api/java(/|$)(.*)
         pathType: Prefix
         backend:
           service:
             name: api-backend-service
             port:
               number: 8080
+
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: front-service
+            port:
+              number: 80
