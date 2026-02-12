@@ -17,7 +17,7 @@ spec:
             port:
               number: 80
 
-      - path: /api/pythonapi/v1/simpson
+      - path: /api/python/api/v1/simpson
         pathType: Prefix
         backend:
           service:
